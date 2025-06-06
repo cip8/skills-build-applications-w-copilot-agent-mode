@@ -3,11 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
 from .models import User, Team, Activity, Leaderboard, Workout
+import os
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    # Use the Codespace URL for API endpoints
-    base_url = 'https://friendly-journey-wrrx5v7xjq525rxr-8000.app.github.dev/'
+    # Use the BASE_URL environment variable for API endpoints, with a default fallback
+    base_url = os.getenv('BASE_URL', 'https://friendly-journey-wrrx5v7xjq525rxr-8000.app.github.dev/')
     return Response({
         'users': base_url + 'api/users/',
         'teams': base_url + 'api/teams/',
